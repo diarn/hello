@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              Expanded(child: Container()),
+              // Expanded(child: Container()),
               SizedBox(
                 height: 25,
               ),
