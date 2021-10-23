@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -12,12 +13,23 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String heartKey = '';
   String partnerHeartKey = '';
+
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
   List<AnimatedText> texts = [
     TypewriterAnimatedText('Hello world!'),
     TypewriterAnimatedText('this is me, Diar'),
     TypewriterAnimatedText(
         "i just want you to know, that i really love you, it's impossible to me to make you sad, mad, or hurt, but i am afraid about tomorrow cause i didn't know how the road leads me to treat you later, if i do anything wrong to you, i hope you tell something i have did to you, so i can know the mistake and try to avoid that thing again, and i can be the decent man for you"),
   ];
+
+  @override
+  void initState() {
+    _firebaseMessaging.getToken().then((value) => heartKey = value!);
+    setState(() {});
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -43,7 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     Stack(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(left: 10),
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            right: 50,
+                          ),
                           height: 50,
                           width: double.infinity,
                           decoration: BoxDecoration(
@@ -51,7 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.green[300],
                           ),
                           child: Center(
-                            child: Text(heartKey),
+                            child: Text(
+                              heartKey,
+                              softWrap: false,
+                            ),
                           ),
                         ),
                         Positioned(
